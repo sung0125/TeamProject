@@ -8,7 +8,7 @@ export default function Navbar() {
         className="text-sky-100 text-4xl font-extrabold hover:text-sky-400"
         href="/"
       >
-        도서관 사이트 레이아웃
+        중부도서관
       </Link>
       <div className="flex">
         <Link

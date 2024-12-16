@@ -1,18 +1,19 @@
-'use client'
+"use client";
 //import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { HiPencilAlt } from 'react-icons/hi'
-import RemoveBtn from './RemoveBtn'
+import Link from "next/link";
+import { HiPencilAlt } from "react-icons/hi";
+import RemoveBtn from "./RemoveBtn";
 
 interface Topic {
-  _id: string
-  title: string
-  description: string
-  createdAt: string
-  updatedAt: string
+  _id: string;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  author: string;
 }
 interface TopicsListProps {
-  topics: Topic[]
+  topics: Topic[];
 }
 export default function TopicsList({ topics }: TopicsListProps) {
   return (
@@ -42,7 +43,7 @@ export default function TopicsList({ topics }: TopicsListProps) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
 // export default function TopicsList() {

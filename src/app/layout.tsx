@@ -3,7 +3,6 @@ import localFont from 'next/font/local'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import { NextAuthProvider } from '@/components/Providers'
-import LoginForm from '@/components/LoginForm'
 import SearchBar from '@/components/SearchBar'
 
 const geistSans = localFont({
@@ -33,30 +32,50 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-[family-name:var(--font-geist-mono)]`}
       >
         <NextAuthProvider>
-          <div className="">
+          <div className="flex flex-col min-h-screen">
             <Navbar />
             <SearchBar />
-            <div className="flex flex-col lg:flex-row justify-between bg-sky-100 min-h-screen p-6">
-              <div className="w-full lg:w-1/4 bg-sky-200 p-4 rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold mb-4 text-center">
-                  User Login
-                </h2>
-                <LoginForm />
-                <div className="mt-6 bg-sky-50 p-4 rounded-lg shadow-md">
-                  <h2 className="text-xl font-semibold mb-2 text-sky-700 text-center">
-                    추천 도서
-                  </h2>
-                  <ul className="list-disc list-inside text-sky-600">
-                    <li>도서 1</li>
-                    <li>도서 2</li>
-                    <li>도서 3</li>
-                  </ul>
+            <div className="bg-sky-100 flex-grow p-6">{children}</div>
+            <footer className="bg-sky-900 text-white p-2">
+              <div className="container mx-auto px-4">
+                <div className="flex justify-between items-center">
+                  <div className="flex gap-8">
+                    <div className="text-sm">
+                      <h3 className="text-base font-semibold mb-1">
+                        중부도서관
+                      </h3>
+                      <p>경기도 고양시 덕양구 대자동 동헌로 305</p>
+                      <p>전화: 031-8075-1090~92 </p>
+                    </div>
+                    <div className="text-sm">
+                      <h3 className="text-base font-semibold mb-1">이용시간</h3>
+                      <p>하절기: 09:00 - 18:00</p>
+                      <p>동절기: 09:00 - 17:00</p>
+                    </div>
+                    <div className="text-sm">
+                      <h3 className="text-base font-semibold mb-1">SNS</h3>
+                      <div className="flex space-x-4">
+                        <a href="#" className="hover:text-gray-300">
+                          팀페이지
+                        </a>
+                        <a href="#" className="hover:text-gray-300">
+                          깃허브
+                        </a>
+                        <a
+                          href="https://julis.joongbu.ac.kr/"
+                          className="hover:text-gray-300"
+                        >
+                          중부대학교
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-sm self-center">
+                    <p>© 2024 중부도서관. All rights reserved.</p>
+                  </div>
                 </div>
               </div>
-              <div className="w-full lg:w-3/4 bg-sky-50 p-6 rounded-lg shadow-md">
-                {children}
-              </div>
-            </div>
+            </footer>
           </div>
         </NextAuthProvider>
       </body>

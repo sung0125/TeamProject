@@ -5,10 +5,10 @@ import Data from '@/models/data'
 import { revalidatePath } from 'next/cache'
 
 // create : Data
-export async function createData(title: string, description: string) {
+export async function createData(title: string, description: string, author: string) {
   try {
     await connectMongoDB()
-    const doc = await Data.create({ title, description })
+    const doc = await Data.create({ title, description,author })
     revalidatePath('/')
     return { success: true, topic: convertDocToObj(doc) }
   } catch (error) {
@@ -19,7 +19,7 @@ export async function createData(title: string, description: string) {
 export async function updateData(
   id: string,
   title: string,
-  description: string
+  description: string,
 ) {
   try {
     await connectMongoDB()
@@ -67,5 +67,19 @@ export async function deleteData(id: string) {
     return { success: true }
   } catch (error) {
     throw new Error(`토픽 삭제에 실패했습니다: ${error}`)
+  }
+}
+
+export async function getDataById(id: string) {
+  try {
+    await connectMongoDB();
+    const doc = await Data.findById(id);
+    if (!doc) {
+      throw new Error("게시글을 찾을 수 없습니다.");
+    }
+    return { success: true, data: convertDocToObj(doc) };
+  } catch (error) {
+    console.error("Error in getDataById:", error);
+    throw new Error(`게시글 조회에 실패했습니다: ${error}`);
   }
 }

@@ -19,8 +19,7 @@ export default async function EditTopic({
       <EditTopicForm
         id={topic._id}
         initialTitle={topic.title}
-        initialDescription={topic.description}
-      />
+        initialDescription={topic.description} initialGenre={''}      />
     </div>
   )
 }

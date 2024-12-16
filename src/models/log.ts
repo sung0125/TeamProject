@@ -7,5 +7,5 @@ const logSchema = new Schema(
     timestamps: true,
   }
 )
-const Log = mongoose.models.Log || mongoose.model('Test_Log', logSchema)
+const Log = mongoose.models.Test_Log || mongoose.model('Test_Log', logSchema)
 export default Log

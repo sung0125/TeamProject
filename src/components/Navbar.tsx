@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import LoginForm from './LoginForm'
 
 export default function Navbar() {
   return (
@@ -11,18 +12,7 @@ export default function Navbar() {
         중부도서관
       </Link>
       <div className="flex">
-        <Link
-          className="bg-sky-400 text-lg font-bold mr-2 px-4 py-2 rounded-md hover:bg-sky-600"
-          href="/addTopic"
-        >
-          게시판1
-        </Link>
-        <Link
-          className="bg-sky-400 text-lg font-bold mr-2 px-4 py-2 rounded-md hover:bg-sky-600"
-          href="/addData"
-        >
-          게시판2
-        </Link>
+        <LoginForm />
       </div>
     </nav>
   )

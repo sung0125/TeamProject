@@ -1,32 +1,32 @@
-'use client'
-import { updateData } from '@/actions/dataActions'
-import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+"use client";
+import { updateData } from "@/actions/dataActions";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
-interface EditDataFormProps {
-  id: string
-  initialTitle: string
-  initialDescription: string
+interface EditTopicFormProps {
+  id: string;
+  initialTitle: string;
+  initialDescription: string;
 }
 
-export default function EditDataForm({
+export default function EditTopicForm({
   id,
   initialTitle,
   initialDescription,
-}: EditDataFormProps) {
-  const [title, setTitle] = useState(initialTitle)
-  const [description, setDescription] = useState(initialDescription)
-  const router = useRouter()
+}: EditTopicFormProps) {
+  const [title, setTitle] = useState(initialTitle);
+  const [description, setDescription] = useState(initialDescription);
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await updateData(id, title, description)
-      router.push('/')
-      router.refresh()
+      await updateData(id, title, description);
+      router.push(`/RequestPage/${id}`);
+      router.refresh();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   return (
     <form
       className="max-w-4xl mx-auto flex flex-col gap-3"
@@ -54,8 +54,8 @@ export default function EditDataForm({
         className="bg-sky-700 text-sky-400 font-bold px-6 py-3 w-fit rounded-md hover:bg-sky-900"
         type="submit"
       >
-        Edit Topic
+        완료
       </button>
     </form>
-  )
+  );
 }

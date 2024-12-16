@@ -1,42 +1,34 @@
-import { NextResponse } from 'next/server';
-import axios from 'axios';
+import { NextResponse } from "next/server";
 
-const API_URL = 'https://www.aladin.co.kr/ttb/api/ItemSearch.aspx';
+export async function GET(request: Request) {
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get("query");
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const query = searchParams.get('query');
-
-  if (!query) {
-    return NextResponse.json(
-      { error: 'Query parameter is required' },
-      { status: 400 }
-    );
-  }
-
-  try {
-    const response = await axios.get(API_URL, {
-      params: {
-        ttbkey: process.env.ALADIN_API_KEY,
-        Query: query,
-        QueryType: 'Title',
-        MaxResults: 10,
-        Output: 'JS',
-        Version: '20131101',
-      },
-    });
-
-    return NextResponse.json(response.data);
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error('Error fetching data from Aladin API:', error.message);
-    } else {
-      console.error('An unexpected error occurred:', error);
+    if (!query) {
+        return NextResponse.json({ error: "검색어가 필요합니다" }, { status: 400 });
     }
 
-    return NextResponse.json(
-      { error: 'Failed to fetch data from Aladin API' },
-      { status: 500 }
-    );
-  }
+    try {
+        const response = await fetch(
+            `https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${
+                process.env.ALADIN_API_KEY
+            }&Query=${encodeURIComponent(query)}&MaxResults=100&start=1&SearchTarget=Book&Output=js&Version=20131101`
+        );
+
+        const data = await response.json();
+
+        const formattedResults = data.item.map((item: any) => ({
+            title: item.title,
+            author: item.author,
+            publisher: item.publisher,
+            pubDate: item.pubDate,
+            cover: item.cover || item.coverLargeUrl,
+            link: item.link,
+        }));
+
+        return NextResponse.json(formattedResults);
+    } catch (error) {
+        console.error("Aladin API Error:", error);
+        return NextResponse.json({ error: "검색 결과를 가져오는데 실패했습니다" }, { status: 500 });
+    }
 }

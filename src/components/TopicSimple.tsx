@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
 interface Topic {
-  _id: string
-  title: string
-  description: string
-  createdAt: string
-  updatedAt: string
+  _id: string;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface TopicsListProps {
-  topics: Topic[]
+  topics: Topic[];
 }
 
 export default function TopicsSimple({ topics }: TopicsListProps) {
@@ -19,7 +19,7 @@ export default function TopicsSimple({ topics }: TopicsListProps) {
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     )
-    .slice(0, 3)
+    .slice(0, 3);
 
   return (
     <div>
@@ -37,5 +37,5 @@ export default function TopicsSimple({ topics }: TopicsListProps) {
         </div>
       ))}
     </div>
-  )
+  );
 }

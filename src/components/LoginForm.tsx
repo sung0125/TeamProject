@@ -6,7 +6,7 @@ import { signOut, useSession } from 'next-auth/react'
 export default function LoginForm() {
   const { status, data: session } = useSession()
   return (
-    <nav className="flex justify-between items-center bg-sky-300 px-8 py-4">
+    <nav className="flex justify-between items-center bg-sky-300 px-8 py-0">
       <div className="flex">
         <div className="flex">
           {status === 'authenticated' ? (
@@ -20,7 +20,7 @@ export default function LoginForm() {
                   alt={session?.user?.name ?? 'user'}
                 />
                 <a
-                  href="/dashboard"
+                  href="/mypage"
                   className="text-white font-bold hover:text-sky-200"
                 >
                   {session?.user?.name}

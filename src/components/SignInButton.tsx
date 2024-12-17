@@ -23,7 +23,7 @@ export default function SignInButton() {
       <form
         action={async () => {
           'use server'
-          await signIn('github', { redirectTo: '/dashboard' })
+          await signIn('github', { redirectTo: '/mypage' })
         }}
       >
         <button

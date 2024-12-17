@@ -55,10 +55,13 @@ export default function RootLayout({
                     <div className="text-sm">
                       <h3 className="text-base font-semibold mb-1">SNS</h3>
                       <div className="flex space-x-4">
-                        <a href="#" className="hover:text-gray-300">
+                        <a href="/teampage" className="hover:text-gray-300">
                           팀페이지
                         </a>
-                        <a href="#" className="hover:text-gray-300">
+                        <a
+                          href="https://github.com/Hoodscp/2024_2_Team_Library"
+                          className="hover:text-gray-300"
+                        >
                           깃허브
                         </a>
                         <a

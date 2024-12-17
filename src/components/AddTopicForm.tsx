@@ -22,7 +22,7 @@ export default function AddTopicForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!session?.user?.name) {
+    if (!session?.user?.email || !session?.user?.name) {
       alert('로그인이 필요합니다.')
       return
     }
@@ -35,21 +35,23 @@ export default function AddTopicForm() {
     const genre = `${selectedGenre}.${extendedGenre}`
 
     try {
-      console.log('게시물 작성 시도:', {
+      console.log('게시물 작성 시도', {
         title,
         description,
-        author: session.user.name,
+        author: session.user.email,
+        authorName: session.user.name,
         genre,
       })
 
       const result = await createTopic(
         title,
         description,
-        session.user.name,
-        genre
+        session.user.email,
+        genre,
+        session.user.name
       )
 
-      console.log('생성된 게시물:', result)
+      console.log('생성된 게시물', result)
       router.push('/RecommendPage')
       router.refresh()
     } catch (error) {

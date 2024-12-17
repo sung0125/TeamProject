@@ -120,6 +120,10 @@ export default function CommentSection({
     }
   }
 
+  const handleReplyClick = (commentId: string) => {
+    setReplyTo(replyTo === commentId ? null : commentId)
+  }
+
   // 댓글 렌더링
   const renderComment = (comment: Comment) => (
     <div
@@ -147,9 +151,7 @@ export default function CommentSection({
       {/* 답글 버튼 */}
       {session && comment.depth === 0 && (
         <button
-          onClick={() => {
-            setReplyTo(replyTo === comment._id ? null : comment._id)
-          }}
+          onClick={() => handleReplyClick(comment._id)}
           className="text-sky-600 hover:text-sky-800 text-sm"
         >
           {replyTo === comment._id ? '답글 취소' : '답글 작성'}

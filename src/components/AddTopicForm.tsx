@@ -47,8 +47,7 @@ export default function AddTopicForm() {
         title,
         description,
         session.user.email,
-        genre,
-        session.user.name
+        genre
       )
 
       console.log('생성된 게시물', result)

@@ -32,8 +32,7 @@ export default function CommentSection({
 }: CommentSectionProps) {
   const { data: session } = useSession()
   const [comments, setComments] = useState<Comment[]>([])
-  const [mainComment, setMainComment] = useState('')
-  const [replyComment, setReplyComment] = useState('')
+  const [newComment, setNewComment] = useState('')
   const [replyTo, setReplyTo] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
@@ -65,8 +64,7 @@ export default function CommentSection({
       return
     }
 
-    const commentContent = parentId ? replyComment : mainComment
-    if (!commentContent.trim()) {
+    if (!newComment.trim()) {
       alert('댓글 내용을 입력해주세요.')
       return
     }
@@ -77,12 +75,12 @@ export default function CommentSection({
         postId,
         postType,
         session.user?.name || '익명',
-        commentContent.trim(),
+        newComment.trim(),
         parentId
       )
 
       if (response.success) {
-        parentId ? setReplyComment('') : setMainComment('')
+        setNewComment('')
         setReplyTo(null)
         const refreshedComments = await getCommentsByPostId(postId, postType)
         if (refreshedComments.success) {
@@ -148,7 +146,7 @@ export default function CommentSection({
       {session && comment.depth === 0 && (
         <button
           onClick={() =>
-            void setReplyTo(replyTo === comment._id ? null : comment._id)
+            setReplyTo(replyTo === comment._id ? null : comment._id)
           }
           className="text-sky-600 hover:text-sky-800 text-sm"
         >
@@ -163,8 +161,8 @@ export default function CommentSection({
           className="mt-2 ml-8"
         >
           <textarea
-            value={replyComment}
-            onChange={(e) => setReplyComment(e.target.value)}
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
             placeholder="답글을 작성하세요..."
             className="w-full p-2 border rounded-lg focus:outline-none focus:border-sky-500"
             rows={2}
@@ -199,8 +197,8 @@ export default function CommentSection({
       {/* 댓글 작성 폼 */}
       <form onSubmit={(e) => handleCommentSubmit(e)} className="mb-6">
         <textarea
-          value={mainComment}
-          onChange={(e) => setMainComment(e.target.value)}
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
           placeholder="댓글을 작성하세요..."
           className="w-full p-2 border rounded-lg focus:outline-none focus:border-sky-500"
           rows={3}

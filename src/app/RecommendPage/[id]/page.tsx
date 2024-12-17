@@ -1,61 +1,61 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { getTopicById } from "@/actions/topicActions";
-import RemoveBtn from "@/components/RemoveBtn";
-import Link from "next/link";
-import { HiOutlinePencil } from "react-icons/hi";
-import Comment from "@/components/comment";
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+import { getTopicById } from '@/actions/topicActions'
+import RemoveBtn from '@/components/RemoveBtn'
+import Link from 'next/link'
+import { HiOutlinePencil } from 'react-icons/hi'
+import Comment from '@/components/comment'
 
 type Topic = {
-  _id: string;
-  title: string;
-  description: string;
-  author: string;
-  createdAt: string;
-  updatedAt: string;
-};
+  _id: string
+  title: string
+  description: string
+  author: string
+  createdAt: string
+  updatedAt: string
+}
 
 export default function TopicDetailPage() {
-  const params = useParams();
-  const id = params.id as string;
-  const [topic, setTopic] = useState<Topic | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const params = useParams()
+  const id = params.id as string
+  const [topic, setTopic] = useState<Topic | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchTopic = async () => {
       try {
-        const response = await getTopicById(id);
+        const response = await getTopicById(id)
         if (response.success) {
-          setTopic(response.topic);
+          setTopic(response.topic)
         } else {
-          setError("데이터를 불러올 수 없습니다.");
+          setError('데이터를 불러올 수 없습니다.')
         }
       } catch (error) {
-        setError("데이터를 불러오는 중 오류가 발생했습니다.");
-        console.error(error);
+        setError('데이터를 불러오는 중 오류가 발생했습니다.')
+        console.error(error)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchTopic();
-  }, [id]);
+    fetchTopic()
+  }, [id])
 
   if (loading) {
-    return <div className="max-w-3xl mx-auto mt-8">로딩 중...</div>;
+    return <div className="max-w-3xl mx-auto mt-8">로딩 중...</div>
   }
 
   if (error) {
-    return <div className="max-w-3xl mx-auto mt-8 text-red-600">{error}</div>;
+    return <div className="max-w-3xl mx-auto mt-8 text-red-600">{error}</div>
   }
 
   if (!topic) {
     return (
       <div className="max-w-3xl mx-auto mt-8">게시글을 찾을 수 없습니다.</div>
-    );
+    )
   }
 
   return (
@@ -83,7 +83,7 @@ export default function TopicDetailPage() {
         <div className="flex justify-between items-center text-sm text-gray-600">
           <div className="flex items-center gap-2">
             <span className="font-semibold">작성자:</span>
-            <span>{topic.author || "작성자 정보 없음"}</span>
+            <span>{topic.author || '작성자 정보 없음'}</span>
           </div>
           <div className="text-right">
             <p>작성일: {new Date(topic.createdAt).toLocaleString()}</p>
@@ -100,7 +100,7 @@ export default function TopicDetailPage() {
       </div>
 
       {/* 댓글 섹션 */}
-      <Comment postId={id} postType={"topic"} />
+      <Comment postId={id} postType={'topic'} />
     </div>
-  );
+  )
 }

@@ -147,8 +147,8 @@ export default function CommentSection({
       {/* 답글 버튼 */}
       {session && comment.depth === 0 && (
         <button
-          onClick={(_) =>
-            setReplyTo(replyTo === comment._id ? null : comment._id)
+          onClick={() =>
+            void setReplyTo(replyTo === comment._id ? null : comment._id)
           }
           className="text-sky-600 hover:text-sky-800 text-sm"
         >

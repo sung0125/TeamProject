@@ -147,9 +147,9 @@ export default function CommentSection({
       {/* 답글 버튼 */}
       {session && comment.depth === 0 && (
         <button
-          onClick={() =>
+          onClick={() => {
             setReplyTo(replyTo === comment._id ? null : comment._id)
-          }
+          }}
           className="text-sky-600 hover:text-sky-800 text-sm"
         >
           {replyTo === comment._id ? '답글 취소' : '답글 작성'}
